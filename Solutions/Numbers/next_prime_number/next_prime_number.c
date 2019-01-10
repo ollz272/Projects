@@ -1,65 +1,66 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include <iostream>
+#include <math.h>  
 
-long unsigned int get_next_prime(long unsigned int current_prime);
-int is_prime(long unsigned int val);
-
-int main(int argc, char *argv[])
+int Isprime(int n)
 {
-
-    long unsigned int current_prime = 2;
-    char answer;
-
-    while (1) {
-        printf("Do you want to see the next prime? (Y/N)\n");
-        if (scanf("%c%*c", &answer) == 1) {
-            if (answer == 'y' || answer == 'Y') {
-                printf("%lu\n", current_prime);
-                current_prime = get_next_prime(current_prime);
-            } else if (answer == 'n' || answer == 'N') {
-                break;
-            } else {
-                printf("That is not an option\n");
-            }
-        }
-    }
-
-    return 0;
-}
-
-long unsigned int get_next_prime(long unsigned int current_prime)
-{
-
-   long unsigned int next_prime = current_prime + 1;
-
-   while (1) {
-       if (is_prime(next_prime)) {
-           return next_prime;
-       } else {
-           next_prime++;
-       }
-   }
-}
-
-int is_prime(long unsigned int val)
-{
-    long unsigned int i = 3;
-
-    long unsigned int max = (long unsigned int) sqrt((double) val);
-
-    if (val % 2 == 0) {
+    int i = 3;
+    
+    int max = sqrt(n);
+    
+    if(n % 2 ==0){
         return 0;
     }
-
-    while (i < max + 1) {
-        if (val % i == 0) {
+    
+    while (i <=  max + 1){
+        if(n % i ==0)
+        {
             return 0;
         }
-        i += 1;
+        i++;
     }
     return 1;
 }
-    
 
+int get_next_prime(int current_prime)
+{
+	int next_prime = current_prime + 1;
+	while(1)
+	{
+		if(Isprime(next_prime) == 1)
+		{
+			return next_prime;
+		}
+		else
+		{
+			next_prime++;
+		}
+	}
+}
 
+int main()
+{
+	int current_prime = 2;
+	char userdecision;
+	while (1)
+	{
+		std::cout << "would you like to know the next prime ?" << std::endl << "Y/N" <<  std::endl ;
+		std::cin >> userdecision;
+		if (userdecision == 'Y'|| userdecision == 'y')
+		{
+			std::cout << current_prime << std::endl;
+			current_prime  = get_next_prime(current_prime);
+		}
+		else
+		{
+		    if(userdecision == 'N' ||userdecision ==  'n')
+		    {
+			    break;
+		    }
+		    else
+		    {   
+		        std::cout << "that isn't an option." << std::endl;
+		    }
+		}
+	}
+	return 0;
+}	
